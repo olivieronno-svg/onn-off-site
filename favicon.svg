@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Fond rond noir -->
+  <circle cx="32" cy="32" r="30" fill="#0A0A0F"/>
+  <!-- Anneau rouge style brand Onn-Off -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#E50914" stroke-width="3"/>
+  <!-- Heartbeat blanc traversant -->
+  <path d="M 8 32 L 18 32 L 22 22 L 28 42 L 34 18 L 40 32 L 56 32" 
+        fill="none" stroke="#FFFFFF" stroke-width="2.5" 
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Point central rouge (pulse cardiaque) -->
+  <circle cx="32" cy="32" r="3" fill="#E50914"/>
+</svg>
