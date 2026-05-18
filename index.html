@@ -3,14 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="ONN/OFF — Studio indépendant. Découvrez nos applications mobiles." />
+<meta name="description" content="Onn-Off Studio — Ambu Time : calcule ton salaire d'ambulancier (CCN Transports Sanitaires). Plus nos apps santé. Gratuit, iOS & Android." />
 <meta name="theme-color" content="#0A0A0F" />
-<meta property="og:title" content="ONN/OFF — Nos Applications" />
-<meta property="og:description" content="Apps mobiles conçues et publiées par Onn/Off." />
-<title>ONN/OFF — Nos Applications</title>
+<link rel="canonical" href="https://onn-off-studio.netlify.app/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://onn-off-studio.netlify.app/" />
+<meta property="og:title" content="Onn-Off Studio — Ambu Time & nos apps santé" />
+<meta property="og:description" content="Ambu Time : calcule ton vrai salaire d'ambulancier (heures, IDAJ, CCN). Gratuit sur iOS & Android." />
+<meta property="og:image" content="https://onn-off-studio.netlify.app/onnoff-logo.png" />
+<meta property="og:image:alt" content="Onn-Off Studio" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Onn-Off Studio — Ambu Time & nos apps santé" />
+<meta name="twitter:description" content="Calcule ton vrai salaire d'ambulancier. Gratuit, iOS & Android." />
+<meta name="twitter:image" content="https://onn-off-studio.netlify.app/onnoff-logo.png" />
+<title>Onn-Off Studio — Ambu Time & nos applications santé</title>
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="apple-touch-icon" href="assets/onnoff-logo.png" />
+<link rel="apple-touch-icon" href="onnoff-logo.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -423,25 +433,30 @@
 
 <nav class="top">
   <a href="#" class="brand" aria-label="Onn-Off Studio">
-    <img src="assets/onnoff-logo.png" alt="Onn-Off Studio" class="brand-logo" />
+    <img src="onnoff-logo.png" alt="Onn-Off Studio" class="brand-logo" />
   </a>
   <a href="mailto:onnoff1975@gmail.com" class="nav-cta">Contact</a>
 </nav>
 
 <header class="hero">
-  <img src="assets/onnoff-logo.png" alt="Onn-Off Studio" class="hero-logo reveal" />
+  <img src="onnoff-logo.png" alt="Onn-Off Studio" class="hero-logo reveal" />
   <div class="hero-eyebrow reveal">Studio indépendant · Béziers</div>
   <h1 class="reveal">3 applications <span class="accent">puissantes.</span></h1>
   <p class="reveal">Pensées pour <strong>la santé</strong>. Conçues pour <strong>vous</strong>. Une suite d'apps mobiles développées en solo par Onn-Off depuis le sud de la France.</p>
+  <div class="reveal" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px;">
+    <a href="#ambu" style="display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:var(--bg);font-family:var(--font-body);font-weight:600;font-size:15px;padding:14px 22px;border-radius:12px;text-decoration:none;">🚑 Ambu Time — calcule ton salaire</a>
+    <a href="#apps" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);border:1px solid var(--border-strong);font-family:var(--font-body);font-weight:500;font-size:15px;padding:14px 22px;border-radius:12px;text-decoration:none;">Toutes nos apps</a>
+  </div>
 </header>
 
-<main class="apps">
+<main class="apps" id="apps">
 
   <!-- AMBU TIME -->
-  <article class="app-card app-ambu reveal">
-    <div class="app-icon no-bg"><img src="assets/ambutime-icon.png" alt="Ambu Time" /></div>
+  <article id="ambu" class="app-card app-ambu reveal">
+    <div class="app-icon no-bg"><img src="ambutime-icon.png" alt="Ambu Time" /></div>
     <div class="app-tag">Outil métier · Ambulanciers</div>
-    <p class="app-desc"><strong>Tes heures. Ton salaire. Ta voix.</strong><br>Calcul automatique des heures et du salaire pour les ambulanciers, conforme à la CCN Transports Routiers. Saisie vocale intégrée, export PDF, historique complet.</p>
+    <p class="app-desc"><strong>Tes heures. Ton salaire. Ta voix.</strong><br>Calcul automatique des heures et du salaire pour les ambulanciers, conforme à la CCN Transports Sanitaires. Heures de nuit, dimanches, IDAJ, congés payés, export PDF, historique complet.</p>
+    <div class="app-tag" style="opacity:.85;">Gratuit · iOS &amp; Android · Conçu pour les DEA &amp; auxiliaires ambulanciers</div>
     <div class="app-stack">
       <span class="chip">Android</span>
       <span class="chip">iOS</span>
@@ -467,8 +482,8 @@
   </article>
 
   <!-- MEDBLOCKS -->
-  <article class="app-card app-medblocks reveal">
-    <div class="app-icon no-bg"><img src="assets/medblocks-icon.png" alt="Medblocks" /></div>
+  <article id="medblocks" class="app-card app-medblocks reveal">
+    <div class="app-icon no-bg"><img src="medblocks-icon.png" alt="Medblocks" /></div>
     <div class="app-tag">Jeu éducatif · Gestes de secours</div>
     <p class="app-desc"><strong>Joue. Apprends. Sauve.</strong><br>Un jeu de puzzles où chaque énigme résolue débloque une fiche de gestes de secours. Apprenez les bons réflexes en jouant — pour réagir le jour où ça compte vraiment.</p>
     <div class="app-stack">
@@ -476,7 +491,6 @@
       <span class="chip">iOS</span>
     </div>
     <div class="store-buttons">
-      <!-- ⚠️ Remplace l'URL par le lien réel de ta fiche Play Store -->
       <a href="https://play.google.com/store/apps/details?id=com.olivieronno.medblocks" target="_blank" rel="noopener" class="store-btn active live">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#34A853" d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 0 1-.609-.92V2.734a1 1 0 0 1 .609-.92z"/><path fill="#4285F4" d="M16.61 14.81L6.05 21.34l8.73-8.73 1.83 2.2z"/><path fill="#FBBC04" d="M20.16 10.81c.39.22.66.62.66 1.09 0 .48-.28.88-.68 1.1l-2.69 1.55-2.31-2.65 2.31-2.65 2.71 1.56z"/><path fill="#EA4335" d="M16.61 9.19L14.78 11.39 6.05 2.66l10.56 6.53z"/></svg>
         <div class="store-btn-text">
@@ -497,8 +511,8 @@
   </article>
 
   <!-- VITAL IA -->
-  <article class="app-card app-vitalia reveal">
-    <div class="app-icon"><img src="assets/vitalia-icon.png" alt="Vital IA" /></div>
+  <article id="vitalia" class="app-card app-vitalia reveal">
+    <div class="app-icon"><img src="vitalia-icon.png" alt="Vital IA" /></div>
     <div class="app-tag">Urgence · Aide aux soignants</div>
     <p class="app-desc"><strong>L'IA au chevet des soignants.</strong><br>Bilan SAMU vocal, calculs de doses précis, gestion de l'oxygène. L'assistant intelligent qui épaule les urgentistes et les soignants sur le terrain.</p>
     <div class="app-stack">
@@ -528,7 +542,7 @@
 </main>
 
 <footer>
-  <img src="assets/onnoff-logo.png" alt="Onn-Off Studio" style="height: 80px; width: auto; margin: 0 auto 16px; display: block; filter: drop-shadow(0 0 20px rgba(255,46,46,0.25));" />
+  <img src="onnoff-logo.png" alt="Onn-Off Studio" style="height: 80px; width: auto; margin: 0 auto 16px; display: block; filter: drop-shadow(0 0 20px rgba(255,46,46,0.25));" />
   <div class="footer-meta">Studio indépendant · Béziers · APE 62.01Z</div>
   <div class="footer-links">
     <a href="mailto:onnoff1975@gmail.com">onnoff1975@gmail.com</a>
