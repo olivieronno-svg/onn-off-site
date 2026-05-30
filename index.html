@@ -344,7 +344,7 @@
     cursor: not-allowed;
     pointer-events: none;
   }
-  .store-btn.beta .beta-badge{
+  .store-btn .beta-badge{
     margin-left: auto;
     font-family: var(--font-mono);
     font-size: 10px;
@@ -378,6 +378,9 @@
 
   .app-vitalia{ --accent: var(--electric-blue); }
   .app-vitalia .app-icon{ background: linear-gradient(135deg, #FFFFFF, #DBEAFE); }
+
+  .app-ascopi{ --accent: #FF3B30; }
+  .app-ascopi .app-icon{ background: linear-gradient(135deg, #FF3B30, #7A0000); }
 
   footer{
     padding: 60px var(--gutter) 40px;
@@ -441,8 +444,8 @@
 <header class="hero">
   <img src="onnoff-logo.png" alt="Onn-Off Studio" class="hero-logo reveal" />
   <div class="hero-eyebrow reveal">Studio indépendant · Béziers</div>
-  <h1 class="reveal">3 applications <span class="accent">puissantes.</span></h1>
-  <p class="reveal">Pensées pour <strong>la santé</strong>. Conçues pour <strong>vous</strong>. Une suite d'apps mobiles développées en solo par Onn-Off depuis le sud de la France.</p>
+  <h1 class="reveal">4 applications <span class="accent">puissantes.</span></h1>
+  <p class="reveal">Pensées pour <strong>la santé et la sécurité</strong>. Conçues pour <strong>vous</strong>. Une suite d'apps mobiles développées en solo par Onn-Off depuis le sud de la France.</p>
   <div class="reveal" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px;">
     <a href="#ambu" style="display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:var(--bg);font-family:var(--font-body);font-weight:600;font-size:15px;padding:14px 22px;border-radius:12px;text-decoration:none;">🚑 Ambu Time — calcule ton salaire</a>
     <a href="#apps" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);border:1px solid var(--border-strong);font-family:var(--font-body);font-weight:500;font-size:15px;padding:14px 22px;border-radius:12px;text-decoration:none;">Toutes nos apps</a>
@@ -450,6 +453,36 @@
 </header>
 
 <main class="apps" id="apps">
+
+  <!-- ASCOPI -->
+  <article id="ascopi" class="app-card app-ascopi reveal">
+    <div class="app-icon no-bg"><img src="ascopi-icon.png" alt="ASCOPI" /></div>
+    <div class="app-tag">Formation · Sécurité incendie &amp; privée</div>
+    <p class="app-desc"><strong>Révise. Réussis. Sécurise.</strong><br>L'app de révision des formations à la sécurité : SSIAP 1·2·3, SST, TFP APS, AIPR… Cours complets, quiz, examens blancs officiels, flashcards et suivi de progression. Mode découverte gratuit ; le contenu complet se débloque avec le code de votre centre de formation.</p>
+    <div class="app-tag" style="opacity:.85;">Gratuit · Android &amp; iOS · Conçu avec un centre de formation réel</div>
+    <div class="app-stack">
+      <span class="chip">Android · Beta</span>
+      <span class="chip">iOS bientôt</span>
+    </div>
+    <div class="store-buttons">
+      <a href="https://play.google.com/apps/testing/com.onnoff.ascopi" target="_blank" rel="noopener" class="store-btn active">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#34A853" d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 0 1-.609-.92V2.734a1 1 0 0 1 .609-.92z"/><path fill="#4285F4" d="M16.61 14.81L6.05 21.34l8.73-8.73 1.83 2.2z"/><path fill="#FBBC04" d="M20.16 10.81c.39.22.66.62.66 1.09 0 .48-.28.88-.68 1.1l-2.69 1.55-2.31-2.65 2.31-2.65 2.71 1.56z"/><path fill="#EA4335" d="M16.61 9.19L14.78 11.39 6.05 2.66l10.56 6.53z"/></svg>
+        <div class="store-btn-text">
+          <small>En test fermé sur</small>
+          <strong>Google Play</strong>
+        </div>
+        <span class="beta-badge">Beta</span>
+      </a>
+      <a href="#" class="store-btn disabled">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/></svg>
+        <div class="store-btn-text">
+          <small>Bientôt sur</small>
+          <strong>App Store</strong>
+        </div>
+        <span class="soon">Soon</span>
+      </a>
+    </div>
+  </article>
 
   <!-- AMBU TIME -->
   <article id="ambu" class="app-card app-ambu reveal">

@@ -10,6 +10,7 @@ Portfolio des applications mobiles d'**Onn-Off Studio**, studio indépendant de 
 
 | App | Type | Statut |
 |-----|------|--------|
+| **ASCOPI** | Révision des formations sécurité (SSIAP, SST, TFP APS, AIPR…) | 🟡 Beta — Test fermé Android |
 | **Ambu Time** | Calcul heures + salaire ambulanciers (vocal) | ✅ Google Play |
 | **Medblocks** | Jeu éducatif de puzzles — gestes de secours | ✅ Google Play + App Store |
 | **Vital IA** | Assistant IA d'urgence pour soignants (bilan SAMU vocal, doses, O2) | 🟡 Beta — Test fermé |
