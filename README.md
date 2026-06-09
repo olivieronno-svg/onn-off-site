@@ -1,94 +1,59 @@
-# ONN/OFF — Site officiel
+# ONN/OFF Studio — Site officiel
 
-Portfolio des applications mobiles d'**Onn-Off Studio**, studio indépendant de développement basé à Béziers (France).
+Site vitrine d'**ONN/OFF Studio**, studio digital indépendant basé à Béziers (Occitanie, France).
 
-🔗 **Site en ligne** : [onnoff.github.io](https://olivieronno-svg.github.io/onn-off-site/)
+🔗 **En ligne :** https://olivieronno-svg.github.io/onn-off-site/
 
----
+## À propos
 
-## 📱 Applications présentées
+ONN/OFF Studio conçoit des **sites internet**, des **applications mobiles** et des **solutions métier sur-mesure** pour les entreprises — du cadrage à la mise en ligne, puis dans la durée.
 
-| App | Type | Statut |
-|-----|------|--------|
-| **ASCOPI** | Révision des formations sécurité (SSIAP, SST, TFP APS, AIPR…) | 🟡 Beta — Test fermé Android |
-| **Ambu Time** | Calcul heures + salaire ambulanciers (vocal) | ✅ Google Play |
-| **Medblocks** | Jeu éducatif de puzzles — gestes de secours | ✅ Google Play + App Store |
-| **Vital IA** | Assistant IA d'urgence pour soignants (bilan SAMU vocal, doses, O2) | 🟡 Beta — Test fermé |
+## Pages
 
----
+| Page | Fichier |
+|------|---------|
+| Accueil | `index.html` |
+| Services | `services.html` |
+| Réalisations | `realisations.html` |
+| À propos | `a-propos.html` |
+| Contact | `contact.html` |
 
-## 🧰 Stack technique du site
+## Réalisations maison
 
-- HTML / CSS vanilla (single-file)
-- Polices : Unbounded, Outfit, JetBrains Mono (Google Fonts)
-- Pas de framework, pas de build step, pas de dépendances JS
-- Hébergement : GitHub Pages
-- ~30 KB compressé + 4 assets PNG/SVG
+| Produit | Type | Statut |
+|---------|------|--------|
+| Ambu Time | Outil métier · ambulanciers | Disponible (Google Play + App Store) |
+| MedBlocks | Jeu éducatif · gestes de secours | Disponible (Google Play + App Store) |
+| Vital IA | Assistant d'urgence pour soignants | Beta — test fermé |
+| Track ONN | Suivi sportif · run / bike / hike | En développement |
 
----
+Le studio réalise également des projets **sur-mesure pour ses clients** (sites web + applications de gestion).
 
-## 📂 Structure
+## Stack technique
 
-```
-.
-├── index.html          # Page principale
-├── favicon.svg         # Favicon vectoriel
-└── assets/
-    ├── onnoff-logo.png      # Logo principal du studio
-    ├── ambutime-icon.png    # Logo Ambu Time
-    ├── medblocks-icon.png   # Logo Medblocks
-    └── vitalia-icon.png     # Logo Vital IA
-```
+- HTML / CSS / JavaScript **vanilla** (aucun framework, aucune étape de build)
+- Polices : Inter & Space Grotesk (Google Fonts)
+- Animations légères au défilement (IntersectionObserver)
+- Responsive (mobile, tablette, ordinateur)
+- Hébergement : **GitHub Pages**
 
----
+## Structure
 
-## 🚀 Déploiement
+Tous les fichiers sont à la racine du dépôt (pages `.html`, `style.css`, `main.js` et les visuels `.png`).
 
-Le site est déployé via **GitHub Pages**.
+## Déploiement
 
-### Première mise en ligne
+Le site est déployé via **GitHub Pages** (branche `main`, dossier racine).
+Toute modification de `index.html` (ou des autres pages) committée sur `main` est publiée automatiquement en 1 à 2 minutes.
 
-```bash
-git init
-git add .
-git commit -m "Initial portfolio"
-git branch -M main
-git remote add origin https://github.com/olivieronno-svg/onn-off-site.git
-git push -u origin main
-```
+## Contact
 
-Puis sur GitHub : **Settings → Pages → Source : `main` / `(root)` → Save**.
-
-Le site sera live à `https://olivieronno-svg.github.io/onn-off-site/` en 1-2 minutes.
-
-### Mises à jour suivantes
-
-```bash
-git add .
-git commit -m "Description du changement"
-git push
-```
-
----
-
-## 📋 À mettre à jour quand les apps évoluent
-
-- **Vital IA publié en production** → dans `index.html`, remplacer le bloc `store-btn beta` par `store-btn active live` et y ajouter l'URL Play Store réelle
-- **Ambu Time sur App Store** → remplacer le bloc `store-btn disabled` (avec le badge "Soon") par `store-btn active live` + URL réelle
-- **Nouvelle app** → dupliquer une `<article class="app-card ...">` existante, ajuster `app-tag`, `app-desc`, logo dans `assets/`, et ajouter la couleur d'accent dans le CSS (`--accent` par classe `.app-xxx`)
-
----
-
-## 📧 Contact
-
-**Olivier Onno** — onnoff1975@gmail.com  
-Auto-entrepreneur · APE 62.01Z (programmation informatique)  
+**Olivier Onno** — onnoff1975@gmail.com
+Auto-entrepreneur · APE 62.01Z (programmation informatique)
 Béziers · Occitanie · France
+Instagram / TikTok : [@onnoff.studio](https://www.instagram.com/onnoff.studio/)
 
----
+## Licence
 
-## ⚖️ Licence
-
-© 2026 ONN/OFF — Tous droits réservés.
-
-Le code de ce site est privé et propriétaire. Les noms et logos des applications présentées (Ambu Time, Medblocks, Vital IA) sont des marques de Onn-Off Studio.
+© 2026 ONN/OFF Studio — Tous droits réservés.
+Le code de ce site est privé et propriétaire.
