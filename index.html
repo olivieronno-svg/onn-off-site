@@ -1,612 +1,169 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Onn-Off Studio — Ambu Time : calcule ton salaire d'ambulancier (CCN Transports Sanitaires). Plus nos apps santé. Gratuit, iOS & Android." />
-<meta name="theme-color" content="#0A0A0F" />
-<link rel="canonical" href="https://onn-off-studio.netlify.app/" />
-
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://onn-off-studio.netlify.app/" />
-<meta property="og:title" content="Onn-Off Studio — Ambu Time & nos apps santé" />
-<meta property="og:description" content="Ambu Time : calcule ton vrai salaire d'ambulancier (heures, IDAJ, CCN). Gratuit sur iOS & Android." />
-<meta property="og:image" content="https://onn-off-studio.netlify.app/onnoff-logo.png" />
-<meta property="og:image:alt" content="Onn-Off Studio" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Onn-Off Studio — Ambu Time & nos apps santé" />
-<meta name="twitter:description" content="Calcule ton vrai salaire d'ambulancier. Gratuit, iOS & Android." />
-<meta name="twitter:image" content="https://onn-off-studio.netlify.app/onnoff-logo.png" />
-<title>Onn-Off Studio — Ambu Time & nos applications santé</title>
-
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="apple-touch-icon" href="onnoff-logo.png" />
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800;900&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-<style>
-  :root{
-    --bg: #0A0A0F;
-    --bg-elev: #14141F;
-    --bg-card: #18182A;
-    --border: rgba(255,255,255,0.08);
-    --border-strong: rgba(255,255,255,0.18);
-    --text: #FAFAFA;
-    --text-mute: #8A8AA0;
-    --text-faint: #50506A;
-    --cyan: #00E5FF;
-    --magenta: #FF2E93;
-    --turquoise: #00D4AA;
-    --coral: #FF4D4D;
-    --violet: #8B5CF6;
-    --gold: #FFB800;
-    --yellow: #FFE600;
-    --emerald: #10B981;
-    --electric-blue: #2563EB;
-
-    --font-display: 'Unbounded', system-ui, sans-serif;
-    --font-body: 'Outfit', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-    --gutter: clamp(20px, 5vw, 80px);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin:0; padding:0; }
-  html { scroll-behavior: smooth; }
-  body{
-    font-family: var(--font-body);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.55;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: inherit; text-decoration: none; }
-  ::selection { background: var(--cyan); color: var(--bg); }
-
-  .bg-grid{
-    position: fixed; inset: 0; z-index: -2;
-    background-image:
-      linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse at center top, black 30%, transparent 80%);
-  }
-  .bg-glow{
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(600px circle at 15% 10%, rgba(0,229,255,0.10), transparent 60%),
-      radial-gradient(700px circle at 85% 60%, rgba(255,46,147,0.08), transparent 60%);
-  }
-
-  nav.top{
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px var(--gutter);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    background: rgba(10,10,15,0.7);
-    border-bottom: 1px solid var(--border);
-  }
-  .brand{
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: 18px;
-    letter-spacing: -0.02em;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .brand-logo{
-    height: 60px;
-    width: auto;
-    display: block;
-    filter: drop-shadow(0 0 14px rgba(229, 9, 20, 0.4));
-    transition: filter 0.3s, transform 0.3s;
-  }
-  .brand:hover .brand-logo{
-    filter: drop-shadow(0 0 24px rgba(229, 9, 20, 0.7));
-    transform: scale(1.05);
-  }
-  .brand .dot{
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--cyan);
-    box-shadow: 0 0 14px var(--cyan), 0 0 28px var(--cyan);
-    animation: pulse 2.4s ease-in-out infinite;
-  }
-  .brand .slash{ color: var(--cyan); }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
-  }
-  .nav-cta{
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-mute);
-    padding: 8px 14px;
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    transition: all 0.2s;
-  }
-  .nav-cta:hover{ color: var(--cyan); border-color: var(--cyan); }
-
-  .hero{
-    padding: 160px var(--gutter) 80px;
-    text-align: center;
-  }
-  .hero-logo{
-    height: clamp(140px, 22vw, 240px);
-    width: auto;
-    margin: 0 auto 32px;
-    display: block;
-    filter: drop-shadow(0 0 40px rgba(229, 9, 20, 0.45)) drop-shadow(0 0 80px rgba(229, 9, 20, 0.2));
-    animation: heroLogoPulse 4s ease-in-out infinite;
-  }
-  @keyframes heroLogoPulse{
-    0%, 100% { filter: drop-shadow(0 0 40px rgba(229, 9, 20, 0.45)) drop-shadow(0 0 80px rgba(229, 9, 20, 0.2)); }
-    50% { filter: drop-shadow(0 0 60px rgba(229, 9, 20, 0.7)) drop-shadow(0 0 120px rgba(229, 9, 20, 0.35)); }
-  }
-  .hero-eyebrow{
-    font-family: var(--font-mono);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--cyan);
-    margin-bottom: 24px;
-  }
-  .hero-eyebrow::before, .hero-eyebrow::after{
-    content: '———';
-    color: var(--text-faint);
-    margin: 0 12px;
-  }
-  .hero h1{
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: clamp(48px, 9vw, 120px);
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    margin: 0 0 24px;
-  }
-  .hero h1 .accent{
-    background: linear-gradient(120deg, var(--cyan), var(--magenta));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .hero p{
-    font-size: clamp(17px, 2vw, 22px);
-    max-width: 640px;
-    margin: 0 auto;
-    color: var(--text-mute);
-    font-weight: 300;
-  }
-  .hero p strong{
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  .apps{
-    padding: 40px var(--gutter) 100px;
-    display: grid;
-    gap: 28px;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .app-card{
-    --accent: var(--cyan);
-    position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    padding: 36px 32px 32px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(.2,.7,.3,1);
-    display: flex; flex-direction: column;
-  }
-  .app-card::before{
-    content:''; position: absolute; top: 0; left: 0; right: 0; height: 120px;
-    background: radial-gradient(ellipse at top, var(--accent), transparent 70%);
-    opacity: 0.15;
-    pointer-events: none;
-  }
-  .app-card:hover{
-    transform: translateY(-6px);
-    border-color: var(--accent);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--accent);
-  }
-  .app-icon{
-    width: 130px; height: 130px;
-    border-radius: 26px;
-    margin-bottom: 22px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: 36px;
-    color: white;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-    overflow: hidden;
-  }
-  .app-icon img{
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .app-icon.no-bg{
-    background: transparent !important;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
-  }
-  .app-card .app-tag{
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-  .app-card h2{
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 32px;
-    letter-spacing: -0.02em;
-    margin: 0 0 12px;
-  }
-  .app-card .app-desc{
-    color: var(--text-mute);
-    font-size: 15px;
-    margin: 0 0 24px;
-    flex: 1;
-  }
-  .app-card .app-desc strong{
-    display: block;
-    color: var(--accent);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0.01em;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-  }
-  .app-card .app-stack{
-    display: flex; flex-wrap: wrap; gap: 6px;
-    margin-bottom: 24px;
-  }
-  .chip{
-    font-family: var(--font-mono);
-    font-size: 10px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    border: 1px solid var(--border-strong);
-    color: var(--text-mute);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .store-buttons{
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .store-btn{
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 18px;
-    border-radius: 14px;
-    background: #000;
-    border: 1px solid var(--border-strong);
-    transition: all 0.2s;
-  }
-  .store-btn.active:hover{
-    transform: translateX(4px);
-    border-color: var(--accent);
-  }
-  .store-btn.disabled{
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  .store-btn svg{ width: 28px; height: 28px; flex-shrink: 0; }
-  .store-btn-text{
-    display: flex; flex-direction: column;
-    line-height: 1.1;
-  }
-  .store-btn-text small{
-    font-size: 10px;
-    color: var(--text-mute);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .store-btn-text strong{
-    font-size: 15px;
-    font-weight: 500;
-    color: white;
-  }
-  .store-btn .soon{
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-faint);
-    padding: 4px 8px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.05);
-  }
-  .store-btn.live .live-dot{
-    margin-left: auto;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #00FF94;
-    box-shadow: 0 0 10px #00FF94;
-    animation: pulse 1.8s ease-in-out infinite;
-  }
-  .store-btn.beta{
-    opacity: 0.85;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  .store-btn .beta-badge{
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 5px 10px;
-    border-radius: 999px;
-    background: rgba(251, 191, 36, 0.12);
-    color: #FBBF24;
-    border: 1px solid rgba(251, 191, 36, 0.35);
-    white-space: nowrap;
-  }
-
-  .app-allo{ --accent: var(--turquoise); }
-  .app-allo .app-icon{ background: linear-gradient(135deg, #00D4AA, #0D1B40); }
-
-  .app-ambu{ --accent: var(--coral); }
-  .app-ambu .app-icon{ background: linear-gradient(135deg, #FF4D4D, #B30000); }
-
-  .app-namaz{ --accent: var(--gold); }
-  .app-namaz .app-icon{ background: linear-gradient(135deg, #FFB800, #6B4500); }
-
-  .app-nemeton{ --accent: var(--violet); }
-  .app-nemeton .app-icon{ background: linear-gradient(135deg, #8B5CF6, #2D1B5C); }
-
-  .app-tenmin{ --accent: var(--yellow); }
-  .app-tenmin .app-icon{ background: linear-gradient(135deg, #FFE600, #6B5C00); color: #000; }
-
-  .app-medblocks{ --accent: var(--emerald); }
-  .app-medblocks .app-icon{ background: linear-gradient(135deg, #10B981, #064E3B); }
-
-  .app-vitalia{ --accent: var(--electric-blue); }
-  .app-vitalia .app-icon{ background: linear-gradient(135deg, #FFFFFF, #DBEAFE); }
-
-  .app-ascopi{ --accent: #FF3B30; }
-  .app-ascopi .app-icon{ background: linear-gradient(135deg, #FF3B30, #7A0000); }
-
-  footer{
-    padding: 60px var(--gutter) 40px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-  .footer-brand{
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: 24px;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-  .footer-brand .slash{ color: var(--cyan); }
-  .footer-meta{
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--text-faint);
-    margin-bottom: 20px;
-  }
-  .footer-links{
-    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-  .footer-links a{
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-mute);
-    transition: color 0.2s;
-  }
-  .footer-links a:hover{ color: var(--cyan); }
-  .footer-copy{
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-faint);
-  }
-
-  .reveal{
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.7,.3,1);
-  }
-  .reveal.in{
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ONN/OFF Studio — Sites web & solutions sur-mesure pour entreprises · Béziers</title>
+<meta name="description" content="Studio digital indépendant à Béziers. Création de sites internet, applications mobiles et solutions métier sur-mesure pour les entreprises.">
+<meta property="og:title" content="ONN/OFF Studio — Sites web & solutions sur-mesure pour entreprises · Béziers">
+<meta property="og:description" content="Studio digital indépendant à Béziers. Création de sites internet, applications mobiles et solutions métier sur-mesure pour les entreprises.">
+<meta property="og:image" content="og-banner.png">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="bg-grid"></div>
-<div class="bg-glow"></div>
-
-<nav class="top">
-  <a href="#" class="brand" aria-label="Onn-Off Studio">
-    <img src="onnoff-logo.png" alt="Onn-Off Studio" class="brand-logo" />
-  </a>
-  <a href="mailto:onnoff1975@gmail.com" class="nav-cta">Contact</a>
-</nav>
-
-<header class="hero">
-  <img src="onnoff-logo.png" alt="Onn-Off Studio" class="hero-logo reveal" />
-  <div class="hero-eyebrow reveal">Studio indépendant · Béziers</div>
-  <h1 class="reveal">4 applications <span class="accent">puissantes.</span></h1>
-  <p class="reveal">Pensées pour <strong>la santé et la sécurité</strong>. Conçues pour <strong>vous</strong>. Une suite d'apps mobiles développées en solo par Onn-Off depuis le sud de la France.</p>
-  <div class="reveal" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px;">
-    <a href="#ambu" style="display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:var(--bg);font-family:var(--font-body);font-weight:600;font-size:15px;padding:14px 22px;border-radius:12px;text-decoration:none;">🚑 Ambu Time — calcule ton salaire</a>
-    <a href="#apps" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);border:1px solid var(--border-strong);font-family:var(--font-body);font-weight:500;font-size:15px;padding:14px 22px;border-radius:12px;text-decoration:none;">Toutes nos apps</a>
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ONN/OFF Studio">
+      <span>ONN<span class="slash">/</span>OFF<small>STUDIO DIGITAL</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links"><li><a href="index.html" class="active">Accueil</a></li><li><a href="services.html">Services</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="contact.html">Contact</a></li></ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary btn-sm">Discuter de votre projet</a>
+      <button class="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
-<main class="apps" id="apps">
-
-  <!-- ASCOPI -->
-  <article id="ascopi" class="app-card app-ascopi reveal">
-    <div class="app-icon no-bg"><img src="ascopi-icon.png" alt="ASCOPI" /></div>
-    <div class="app-tag">Formation · Sécurité incendie &amp; privée</div>
-    <p class="app-desc"><strong>Révise. Réussis. Sécurise.</strong><br>L'app de révision des formations à la sécurité : SSIAP 1·2·3, SST, TFP APS, AIPR… Cours complets, quiz, examens blancs officiels, flashcards et suivi de progression. Mode découverte gratuit ; le contenu complet se débloque avec le code de votre centre de formation.</p>
-    <div class="app-tag" style="opacity:.85;">Gratuit · Android &amp; iOS · Conçu avec un centre de formation réel</div>
-    <div class="app-stack">
-      <span class="chip">Android · Beta</span>
-      <span class="chip">iOS bientôt</span>
+<section class="hero">
+  <div class="glow glow--cyan"></div><div class="glow glow--red"></div>
+  <div class="container hero-grid">
+    <div class="reveal">
+      <p class="eyebrow">Studio digital &middot; Béziers</p>
+      <h1>Votre site web et vos outils métier, <span class="grad-text">conçus sur-mesure.</span></h1>
+      <p class="lead">Studio indépendant qui conçoit des <strong>sites internet</strong>, des <strong>applications mobiles</strong> et des <strong>solutions métier</strong> pour les entreprises — de l'idée à la mise en ligne, puis dans la durée.</p>
+      <div class="hero-cta">
+        <a href="contact.html" class="btn btn-primary">Démarrer un projet &rarr;</a>
+        <a href="realisations.html" class="btn btn-ghost">Voir les réalisations</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>5</b> produits conçus</div>
+        <div><b>Web + Mobile</b> de A à Z</div>
+        <div><b>100%</b> sur-mesure</div>
+      </div>
     </div>
-    <div class="store-buttons">
-      <a href="https://play.google.com/apps/testing/com.onnoff.ascopi" target="_blank" rel="noopener" class="store-btn active">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#34A853" d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 0 1-.609-.92V2.734a1 1 0 0 1 .609-.92z"/><path fill="#4285F4" d="M16.61 14.81L6.05 21.34l8.73-8.73 1.83 2.2z"/><path fill="#FBBC04" d="M20.16 10.81c.39.22.66.62.66 1.09 0 .48-.28.88-.68 1.1l-2.69 1.55-2.31-2.65 2.31-2.65 2.71 1.56z"/><path fill="#EA4335" d="M16.61 9.19L14.78 11.39 6.05 2.66l10.56 6.53z"/></svg>
-        <div class="store-btn-text">
-          <small>En test fermé sur</small>
-          <strong>Google Play</strong>
-        </div>
-        <span class="beta-badge">Beta</span>
-      </a>
-      <a href="#" class="store-btn disabled">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-        <div class="store-btn-text">
-          <small>Bientôt sur</small>
-          <strong>App Store</strong>
-        </div>
-        <span class="soon">Soon</span>
-      </a>
+    <div class="hero-visual reveal">
+      <div class="device"><div class="bar"><i></i><i></i><i></i></div>
+        <img src="shot-formation.png" alt="Réalisation centre de formation — site web et application"></div>
+      <img src="logo.png" class="hero-logo-badge" alt="">
     </div>
-  </article>
-
-  <!-- AMBU TIME -->
-  <article id="ambu" class="app-card app-ambu reveal">
-    <div class="app-icon no-bg"><img src="ambutime-icon.png" alt="Ambu Time" /></div>
-    <div class="app-tag">Outil métier · Ambulanciers</div>
-    <p class="app-desc"><strong>Tes heures. Ton salaire. Ta voix.</strong><br>Calcul automatique des heures et du salaire pour les ambulanciers, conforme à la CCN Transports Sanitaires. Heures de nuit, dimanches, IDAJ, congés payés, export PDF, historique complet.</p>
-    <div class="app-tag" style="opacity:.85;">Gratuit · iOS &amp; Android · Conçu pour les DEA &amp; auxiliaires ambulanciers</div>
-    <div class="app-stack">
-      <span class="chip">Android</span>
-      <span class="chip">iOS</span>
-    </div>
-    <div class="store-buttons">
-      <a href="https://play.google.com/store/apps/details?id=com.onnoff.ambutime" target="_blank" rel="noopener" class="store-btn active live">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#34A853" d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 0 1-.609-.92V2.734a1 1 0 0 1 .609-.92z"/><path fill="#4285F4" d="M16.61 14.81L6.05 21.34l8.73-8.73 1.83 2.2z"/><path fill="#FBBC04" d="M20.16 10.81c.39.22.66.62.66 1.09 0 .48-.28.88-.68 1.1l-2.69 1.55-2.31-2.65 2.31-2.65 2.71 1.56z"/><path fill="#EA4335" d="M16.61 9.19L14.78 11.39 6.05 2.66l10.56 6.53z"/></svg>
-        <div class="store-btn-text">
-          <small>Disponible sur</small>
-          <strong>Google Play</strong>
-        </div>
-        <span class="live-dot"></span>
-      </a>
-      <a href="https://apps.apple.com/app/id6763624759" target="_blank" rel="noopener" class="store-btn active live">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-        <div class="store-btn-text">
-          <small>Disponible sur</small>
-          <strong>App Store</strong>
-        </div>
-        <span class="live-dot"></span>
-      </a>
-    </div>
-  </article>
-
-  <!-- MEDBLOCKS -->
-  <article id="medblocks" class="app-card app-medblocks reveal">
-    <div class="app-icon no-bg"><img src="medblocks-icon.png" alt="Medblocks" /></div>
-    <div class="app-tag">Jeu éducatif · Gestes de secours</div>
-    <p class="app-desc"><strong>Joue. Apprends. Sauve.</strong><br>Un jeu de puzzles où chaque énigme résolue débloque une fiche de gestes de secours. Apprenez les bons réflexes en jouant — pour réagir le jour où ça compte vraiment.</p>
-    <div class="app-stack">
-      <span class="chip">Android</span>
-      <span class="chip">iOS</span>
-    </div>
-    <div class="store-buttons">
-      <a href="https://play.google.com/store/apps/details?id=com.olivieronno.medblocks" target="_blank" rel="noopener" class="store-btn active live">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#34A853" d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 0 1-.609-.92V2.734a1 1 0 0 1 .609-.92z"/><path fill="#4285F4" d="M16.61 14.81L6.05 21.34l8.73-8.73 1.83 2.2z"/><path fill="#FBBC04" d="M20.16 10.81c.39.22.66.62.66 1.09 0 .48-.28.88-.68 1.1l-2.69 1.55-2.31-2.65 2.31-2.65 2.71 1.56z"/><path fill="#EA4335" d="M16.61 9.19L14.78 11.39 6.05 2.66l10.56 6.53z"/></svg>
-        <div class="store-btn-text">
-          <small>Disponible sur</small>
-          <strong>Google Play</strong>
-        </div>
-        <span class="live-dot"></span>
-      </a>
-      <a href="https://apps.apple.com/us/app/medblocks/id6768181658" target="_blank" rel="noopener" class="store-btn active live">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-        <div class="store-btn-text">
-          <small>Disponible sur</small>
-          <strong>App Store</strong>
-        </div>
-        <span class="live-dot"></span>
-      </a>
-    </div>
-  </article>
-
-  <!-- VITAL IA -->
-  <article id="vitalia" class="app-card app-vitalia reveal">
-    <div class="app-icon"><img src="vitalia-icon.png" alt="Vital IA" /></div>
-    <div class="app-tag">Urgence · Aide aux soignants</div>
-    <p class="app-desc"><strong>L'IA au chevet des soignants.</strong><br>Bilan SAMU vocal, calculs de doses précis, gestion de l'oxygène. L'assistant intelligent qui épaule les urgentistes et les soignants sur le terrain.</p>
-    <div class="app-stack">
-      <span class="chip">Beta · Test fermé</span>
-      <span class="chip">iOS bientôt</span>
-    </div>
-    <div class="store-buttons">
-      <a href="#" class="store-btn beta">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#34A853" d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 0 1-.609-.92V2.734a1 1 0 0 1 .609-.92z"/><path fill="#4285F4" d="M16.61 14.81L6.05 21.34l8.73-8.73 1.83 2.2z"/><path fill="#FBBC04" d="M20.16 10.81c.39.22.66.62.66 1.09 0 .48-.28.88-.68 1.1l-2.69 1.55-2.31-2.65 2.31-2.65 2.71 1.56z"/><path fill="#EA4335" d="M16.61 9.19L14.78 11.39 6.05 2.66l10.56 6.53z"/></svg>
-        <div class="store-btn-text">
-          <small>En test fermé sur</small>
-          <strong>Google Play</strong>
-        </div>
-        <span class="beta-badge">Beta</span>
-      </a>
-      <a href="#" class="store-btn disabled">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09M12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/></svg>
-        <div class="store-btn-text">
-          <small>Bientôt sur</small>
-          <strong>App Store</strong>
-        </div>
-        <span class="soon">Soon</span>
-      </a>
-    </div>
-  </article>
-
-</main>
-
-<footer>
-  <img src="onnoff-logo.png" alt="Onn-Off Studio" style="height: 80px; width: auto; margin: 0 auto 16px; display: block; filter: drop-shadow(0 0 20px rgba(255,46,46,0.25));" />
-  <div class="footer-meta">Studio indépendant · Béziers · APE 62.01Z</div>
-  <div class="footer-links">
-    <a href="https://www.tiktok.com/@onnoff.studio" target="_blank" rel="noopener">TikTok</a>
-    <a href="https://www.instagram.com/onnoff.studio/" target="_blank" rel="noopener">Instagram</a>
-    <a href="mailto:onnoff1975@gmail.com">Contact</a>
-    <a href="https://github.com/olivieronno-svg" target="_blank" rel="noopener">GitHub</a>
   </div>
-  <div class="footer-copy">© 2026 ONN/OFF — Tous droits réservés</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width:60ch">
+      <p class="eyebrow">Ce que je fais</p>
+      <h2>Des services pensés pour faire <span class="accent">tourner votre activité</span></h2>
+      <p class="lead">Un interlocuteur unique, du cadrage au déploiement. Pas de jargon, des livrables concrets.</p>
+    </div>
+    <div class="grid grid-4" style="margin-top:46px">
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></div><h3>Sites internet</h3><p>Sites vitrines et institutionnels : design sur-mesure, responsive, contenus et mise en ligne.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div><h3>Applications mobiles</h3><p>Apps iOS &amp; Android, du prototype à la publication sur les stores.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9L12 2z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg></div><h3>Solutions métier</h3><p>Outils de gestion adaptés à votre activité : back-office, suivi, automatisations.</p></div>
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/><path d="M12 8v4l3 2"/></svg></div><h3>Conseil &amp; suivi</h3><p>Cadrage, choix techniques, déploiement et accompagnement dans la durée.</p></div>
+    </div>
+    <div class="center reveal" style="margin-top:36px"><a href="services.html" class="btn btn-ghost">Détail des services &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <p class="eyebrow reveal">Cas client</p>
+    <div class="feature reveal">
+      <div class="media"><img src="shot-formation.png" alt="Centre de formation"></div>
+      <div class="body">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px">
+          <img src="icon-formation.png" class="appicon" alt="Centre de formation"><span class="badge badge-flag">Projet phare</span>
+        </div>
+        <h2>Centre de formation — un écosystème web + mobile complet</h2>
+        <p class="muted">Un <strong>site web</strong> et une <strong>application mobile</strong> pour piloter un centre de formation à la sécurité : révisions SSIAP&nbsp;1&middot;2&middot;3, SST, AIPR, examens blancs officiels, flashcards et suivi des stagiaires — du back-office à l'app de l'apprenant.</p>
+        <div class="tags"><span>Site web</span><span>App iOS &amp; Android</span><span>Back-office</span><span>Suivi stagiaires</span></div>
+        <a href="realisations.html" class="btn btn-primary btn-sm">Voir cette réalisation &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="max-width:60ch">
+      <p class="eyebrow">Réalisations</p>
+      <h2>Des produits conçus <span class="accent">en propre</span></h2>
+      <p class="lead">La meilleure preuve d'un savoir-faire : des produits imaginés, développés et publiés.</p>
+    </div>
+    <div class="grid grid-3" style="margin-top:46px">
+      <article class="work reveal"><div class="work-shot"><img src="shot-ambutime.png" alt="Ambu Time"></div><div class="work-body"><span class="cat">Outil métier &middot; Ambulanciers</span><h3>Ambu Time</h3><p>Calcul automatique des heures et du salaire, conforme à la CCN des Transports Sanitaires.</p><div class="work-meta"><span class="badge badge-live">Sur les stores</span></div></div></article>
+      <article class="work reveal"><div class="work-shot"><img src="shot-medblocks.png" alt="MedBlocks"></div><div class="work-body"><span class="cat">Jeu éducatif &middot; Secourisme</span><h3>MedBlocks</h3><p>Un jeu de puzzles où chaque énigme débloque une fiche de gestes de secours.</p><div class="work-meta"><span class="badge badge-live">Sur les stores</span></div></div></article>
+      <article class="work reveal"><div class="work-shot"><img src="shot-vitalia.png" alt="Vital IA"></div><div class="work-body"><span class="cat">Urgence &middot; Soignants</span><h3>Vital IA</h3><p>Bilan SAMU vocal, calculs de doses et gestion de l'oxygène pour épauler les soignants.</p><div class="work-meta"><span class="badge badge-dev">Beta</span></div></div></article>
+    </div>
+    <div class="center reveal" style="margin-top:36px"><a href="realisations.html" class="btn btn-ghost">Toutes les réalisations &rarr;</a></div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <p class="eyebrow reveal">Ma démarche</p>
+    <h2 class="reveal" style="margin-bottom:40px">Simple, claire, sans mauvaise surprise</h2>
+    <div class="steps reveal">
+      <div class="step"><div class="n">01</div><h4>Écoute</h4><p>Comprendre votre activité et votre besoin réel.</p></div>
+      <div class="step"><div class="n">02</div><h4>Conception</h4><p>Maquettes, cadrage et devis détaillé avant tout engagement.</p></div>
+      <div class="step"><div class="n">03</div><h4>Développement</h4><p>Réalisation, points réguliers et ajustements continus.</p></div>
+      <div class="step"><div class="n">04</div><h4>Mise en ligne</h4><p>Déploiement, formation et accompagnement dans la durée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container"><div class="cta-band reveal"><div class="glow glow--cyan"></div>
+    <p class="eyebrow">Parlons de votre projet</p>
+    <h2>Un site, une app ou un outil métier en tête&nbsp;?</h2>
+    <p class="lead" style="margin:0 auto 28px">Décrivez votre besoin, je reviens vers vous rapidement avec une première vision et un devis clair.</p>
+    <a href="contact.html" class="btn btn-primary">Me contacter &rarr;</a>
+  </div></div>
+</section>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="brand" style="margin-bottom:14px">
+          <img src="logo.png" alt=""><span>ONN<span class="slash">/</span>OFF<small>STUDIO DIGITAL</small></span>
+        </a>
+        <p>Studio digital indépendant à Béziers. Sites internet, applications mobiles et solutions métier sur-mesure pour les entreprises.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="services.html">Services</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:onnoff1975@gmail.com">onnoff1975@gmail.com</a>
+        <a href="https://www.instagram.com/onnoff.studio/" target="_blank" rel="noopener">Instagram @onnoff.studio</a>
+        <a href="https://www.tiktok.com/@onnoff.studio" target="_blank" rel="noopener">TikTok @onnoff.studio</a>
+        <a href="https://github.com/olivieronno-svg" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>&copy; <span id="year">2026</span> ONN/OFF Studio &middot; Béziers &middot; APE 62.01Z</small>
+      <div class="socials">
+        <a href="https://www.instagram.com/onnoff.studio/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1 .36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.36-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1018.6 12 6.6 6.6 0 0012 5.4zm0 10.9A4.3 4.3 0 1116.3 12 4.3 4.3 0 0112 16.3zm6.8-11.2a1.54 1.54 0 11-1.54-1.54 1.54 1.54 0 011.54 1.54z"/></svg></a>
+        <a href="https://www.tiktok.com/@onnoff.studio" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.5 3c.3 2 1.5 3.5 3.5 3.8v2.6c-1.3.1-2.5-.3-3.6-1v6.4a5.6 5.6 0 11-5.6-5.6c.3 0 .6 0 .9.1v2.7a2.9 2.9 0 00-1-.2 2.9 2.9 0 102.9 2.9V3z"/></svg></a>
+        <a href="https://github.com/olivieronno-svg" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+      </div>
+    </div>
+  </div>
 </footer>
-
-<script>
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = (i % 6) * 80 + 'ms';
-    io.observe(el);
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    const glow = document.querySelector('.bg-glow');
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-    glow.style.transform = `translate(${x}px, ${y}px)`;
-  });
-</script>
-
+<script src="main.js"></script>
 </body>
 </html>
