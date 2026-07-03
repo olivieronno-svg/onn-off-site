@@ -1,4 +1,31 @@
 /* ONN/OFF Studio — interactions légères (sans dépendance) */
+
+/* ===== Fond animé — carrousel plein site =====
+   6 visuels ONN-OFF (4 bannières Studio + 2 Expert SSI), recadrés sur la photo, optimisés WebP. */
+var BG_IMAGES = ['bg-2.webp','bg-1.webp','bg-6.webp','bg-3.webp','bg-5.webp','bg-4.webp'];
+(function(){
+  if(!BG_IMAGES || !BG_IMAGES.length) return;
+  var bg=document.createElement('div'); bg.className='site-bg'; bg.setAttribute('aria-hidden','true');
+  var veil=document.createElement('div'); veil.className='site-veil'; veil.setAttribute('aria-hidden','true');
+  var slides=[];
+  BG_IMAGES.forEach(function(src,i){
+    var s=document.createElement('div'); s.className='site-bg__slide';
+    s.style.backgroundImage="url('"+src+"')";
+    if(i===0) s.classList.add('is-active');
+    bg.appendChild(s); slides.push(s);
+  });
+  document.body.insertBefore(veil,document.body.firstChild);
+  document.body.insertBefore(bg,document.body.firstChild);
+  if(slides.length>1){
+    var idx=0;
+    setInterval(function(){
+      slides[idx].classList.remove('is-active');
+      idx=(idx+1)%slides.length;
+      slides[idx].classList.add('is-active');
+    },6000);
+  }
+})();
+
 (function(){
   // Mobile menu
   var burger=document.querySelector('.burger');

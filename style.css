@@ -209,3 +209,31 @@ img{max-width:100%;display:block}
   .cta-band{padding:40px 24px}
   .feature .body{padding:28px}
 }
+
+
+/* ---- page légale ---- */
+.legal{max-width:80ch}
+.legal article{padding:22px 0;border-top:1px solid var(--line)}
+.legal article:first-child{border-top:0;padding-top:0}
+.legal h2{font-size:1.35rem;color:var(--text);margin-bottom:.5em}
+.legal p{color:var(--muted);font-size:.98rem}
+.legal ul{margin:0 0 1rem;padding-left:1.2em;color:var(--muted);font-size:.98rem}
+.legal li{margin-bottom:.35em}
+.legal a{color:var(--cyan)}
+.legal strong{color:var(--text)}
+
+/* ===== Fond animé — carrousel plein site (charte ONN/OFF) ===== */
+html{background:var(--bg)}
+body{background:transparent}
+.site-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.site-bg__slide{position:absolute;inset:0;background-size:cover;background-position:center;
+  opacity:0;transition:opacity 2.2s ease-in-out;
+  transform:scale(1.0);animation:bgZoom 30s ease-in-out infinite alternate}
+.site-bg__slide.is-active{opacity:1}
+@keyframes bgZoom{from{transform:scale(1.0)}to{transform:scale(1.045)}}
+.site-veil{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(7,9,12,.86),rgba(7,9,12,.74) 42%,rgba(7,9,12,.92)),
+    radial-gradient(1200px 620px at 12% -5%,rgba(0,229,255,.12),transparent 60%),
+    radial-gradient(1000px 560px at 105% 105%,rgba(232,50,63,.10),transparent 60%)}
+@media(prefers-reduced-motion:reduce){.site-bg__slide{animation:none;transform:none}}
