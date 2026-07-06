@@ -48,7 +48,7 @@ Toute modification de `index.html` (ou des autres pages) committée sur `main` e
 
 ## Contact
 
-**Olivier Onno** — onnoff1975@gmail.com
+**Olivier Onno** — contact@onn-off.fr
 Auto-entrepreneur · APE 62.01Z (programmation informatique)
 Béziers · Occitanie · France
 Instagram / TikTok : [@onnoff.studio](https://www.instagram.com/onnoff.studio/)

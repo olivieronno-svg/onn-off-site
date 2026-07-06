@@ -52,7 +52,7 @@ var BG_IMAGES = ['bg-2.webp','bg-1.webp','bg-6.webp','bg-3.webp','bg-5.webp','bg
       var msg=(form.message.value||'').trim();
       var subject=encodeURIComponent('Demande via le site — '+(name||'Contact'));
       var body=encodeURIComponent('Nom : '+name+'\nEmail : '+email+'\n\n'+msg);
-      window.location.href='mailto:onnoff1975@gmail.com?subject='+subject+'&body='+body;
+      window.location.href='mailto:contact@onn-off.fr?subject='+subject+'&body='+body;
     });
   }
   // Footer year
