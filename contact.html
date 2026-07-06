@@ -48,8 +48,10 @@
         <div class="field"><label for="nom">Nom / entreprise</label><input id="nom" name="nom" type="text" placeholder="Votre nom ou votre société" required></div>
         <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="vous@exemple.fr" required></div>
         <div class="field"><label for="message">Votre projet</label><textarea id="message" name="message" rows="6" placeholder="Site web, application, outil de gestion… décrivez votre besoin." required></textarea></div>
+        <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="website">Site web</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
         <button type="submit" class="btn btn-primary">Envoyer le message &rarr;</button>
-        <p class="muted" style="font-size:.82rem;margin-top:14px">Le bouton ouvre votre messagerie avec le message pré-rempli. Vous pouvez aussi écrire directement à <a href="mailto:contact@onn-off.fr" style="color:var(--cyan)">contact@onn-off.fr</a>.</p>
+        <p id="form-status" role="status" style="font-size:.9rem;margin-top:12px"></p>
+        <p class="muted" style="font-size:.82rem;margin-top:14px">Votre message est envoyé directement, sans ouvrir votre messagerie. Vous pouvez aussi écrire à <a href="mailto:contact@onn-off.fr" style="color:var(--cyan)">contact@onn-off.fr</a>.</p>
       </form>
     </div>
     <div class="reveal">
