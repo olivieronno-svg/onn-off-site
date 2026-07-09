@@ -7,7 +7,14 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const { nom = '', email = '', message = '', website = '' } = req.body || {};
+  const { nom = '', email = '', message = '', website = '', dest = '', sujet = '' } = req.body || {};
+
+  // Destinataires autorisés (liste blanche stricte — tout autre valeur retombe sur le défaut).
+  const DESTINATAIRES = {
+    'contact@onn-off.fr': 'ONN/OFF Studio',
+    'nadege.vasquez@ascopi.com': 'ASCOPI — Nadège Vasquez',
+  };
+  const destinataire = DESTINATAIRES[dest] ? dest : 'contact@onn-off.fr';
 
   // Champ piège invisible : un humain le laisse vide, un robot le remplit.
   if (website) {
@@ -32,9 +39,9 @@ module.exports = async (req, res) => {
     },
     body: JSON.stringify({
       sender: { name: 'Site ONN/OFF Studio', email: 'contact@onn-off.fr' },
-      to: [{ email: 'contact@onn-off.fr', name: 'ONN/OFF Studio' }],
+      to: [{ email: destinataire, name: DESTINATAIRES[destinataire] }],
       replyTo: { email: email, name: nom },
-      subject: 'Demande via le site — ' + nom,
+      subject: (sujet.trim() ? sujet.trim().slice(0, 150) : 'Demande via le site — ' + nom),
       textContent: 'Nom / entreprise : ' + nom + '\nEmail : ' + email + '\n\n' + message,
     }),
   });
