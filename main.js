@@ -42,7 +42,7 @@ var BG_IMAGES = ['bg-2.webp','bg-1.webp','bg-6.webp','bg-3.webp','bg-5.webp','bg
     els.forEach(function(el){io.observe(el);});
   }else{els.forEach(function(el){el.classList.add('in');});}
 
-  // Contact form -> envoi direct via /api/contact (fonction Vercel + Brevo)
+  // Contact form -> envoi sans serveur via FormSubmit (compatible hébergement statique)
   var form=document.getElementById('contact-form');
   if(form){
     form.addEventListener('submit',function(ev){
@@ -52,19 +52,22 @@ var BG_IMAGES = ['bg-2.webp','bg-1.webp','bg-6.webp','bg-3.webp','bg-5.webp','bg
       var initial=btn.innerHTML;
       btn.disabled=true;btn.textContent='Envoi en cours…';
       if(status){status.textContent='';status.style.color='';}
-      fetch('/api/contact',{
+      if(form.website&&form.website.value){btn.disabled=false;btn.innerHTML=initial;return;}
+      fetch('https://formsubmit.co/ajax/contact@onn-off.fr',{
         method:'POST',
-        headers:{'Content-Type':'application/json'},
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
         body:JSON.stringify({
+          _subject:'Demande via le site — '+(form.nom.value||'').trim(),
+          _template:'box',
+          _captcha:'false',
           nom:(form.nom.value||'').trim(),
           email:(form.email.value||'').trim(),
-          message:(form.message.value||'').trim(),
-          website:form.website?form.website.value:''
+          message:(form.message.value||'').trim()
         })
       })
       .then(function(r){return r.json();})
       .then(function(d){
-        if(!d.ok){throw new Error(d.error||'erreur');}
+        if(!(d.success==='true'||d.success===true)){throw new Error(d.message||'erreur');}
         form.reset();
         if(status){status.textContent='✓ Message envoyé — je reviens vers vous rapidement.';status.style.color='#7ee2a8';}
       })

@@ -1,0 +1,8 @@
+{
+  "projects": { "default": "onn-off-vitrine" },
+  "targets": {
+    "onn-off-vitrine": {
+      "hosting": { "studio": ["onn-off-studio"] }
+    }
+  }
+}

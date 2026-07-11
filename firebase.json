@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "target": "studio",
+    "public": ".",
+    "ignore": ["firebase.json", ".firebaserc", "**/.*", "api/**", "CNAME", "README.md", "*.zip", "**/node_modules/**"],
+    "cleanUrls": true,
+    "headers": [
+      {
+        "source": "**/*.@(jpg|jpeg|png|webp|svg|css|js)",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+      }
+    ]
+  }
+}
