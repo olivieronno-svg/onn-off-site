@@ -132,6 +132,7 @@ img{max-width:100%;display:block}
 .feature .body h2{font-size:1.9rem}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
 .tags span{font-size:.8rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:.3em .8em}
+.tags span.inc{color:var(--teal);border-color:rgba(25,240,208,.42);background:rgba(25,240,208,.08);font-weight:600}
 
 /* ---- steps ---- */
 .steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
