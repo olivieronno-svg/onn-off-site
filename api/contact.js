@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
   // Destinataires autorisés (liste blanche stricte — tout autre valeur retombe sur le défaut).
   const DESTINATAIRES = {
     'contact@onn-off.fr': 'ONN/OFF Studio',
-    'nadege.vasquez@ascopi.com': 'ASCOPI — Nadège Vasquez',
   };
   const destinataire = DESTINATAIRES[dest] ? dest : 'contact@onn-off.fr';
 
