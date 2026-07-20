@@ -1,7 +1,7 @@
 // Envoi des factures acquittées FORM-ONN (Vercel Serverless Function).
 // Appelée par form-onn.web.app après paiement : vérifie le jeton Firebase du centre
 // connecté puis envoie la facture PDF par e-mail via Brevo (copie à ONN/OFF Studio).
-const FIREBASE_API_KEY = 'AIzaSyA-YMiE-yEb-C8jHAHS84wFyP_g17BvYiY'; // clé publique du projet form-onn
+const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY; // clé Web publique form-onn (définie en variable d'env Vercel)
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://form-onn.web.app');
@@ -10,6 +10,10 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') { res.status(204).end(); return; }
   if (req.method !== 'POST') {
     res.status(405).json({ ok: false, error: 'Méthode non autorisée' });
+    return;
+  }
+  if (!FIREBASE_API_KEY) {
+    res.status(500).json({ ok: false, error: 'Configuration serveur incomplète (FIREBASE_API_KEY)' });
     return;
   }
 
