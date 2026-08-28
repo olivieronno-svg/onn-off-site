@@ -4,3 +4,4 @@
 # Scripts de maintenance : utiles en local, mais Vercel publie tout ce qui
 # traine a la racine — un .ps1 committe se retrouve telechargeable en ligne.
 basculer-*.ps1
+ajouter-jsonld.ps1
