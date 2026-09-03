@@ -12,6 +12,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<!-- Pre-connexion aux produits : la liaison est prete avant le clic sur une tuile -->
+<link rel="preconnect" href="https://onn-off.fr" crossorigin>
+<link rel="dns-prefetch" href="https://onn-off.fr">
+<link rel="preconnect" href="https://form-onn.web.app" crossorigin>
+<link rel="dns-prefetch" href="https://form-onn.web.app">
+<link rel="preconnect" href="https://fleet-onn.web.app" crossorigin>
+<link rel="dns-prefetch" href="https://fleet-onn.web.app">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
 <link rel="stylesheet" href="style.css">
 <link rel="canonical" href="https://studio.onn-off.fr/">
 <meta property="og:url" content="https://studio.onn-off.fr/">
@@ -285,5 +293,27 @@
   </div>
 </footer>
 <script src="main.js"></script>
+<script>
+/* Survol d'un lien -> le navigateur ouvre la connexion tout de suite, le clic devient quasi instantane */
+(function(){
+  var done={};
+  function warm(href){
+    try{
+      var o=new URL(href,location.href).origin;
+      if(done[o]||o===location.origin){return;}
+      done[o]=1;
+      var l=document.createElement('link');
+      l.rel='preconnect'; l.href=o; l.crossOrigin='';
+      document.head.appendChild(l);
+    }catch(e){}
+  }
+  function onHover(e){
+    var a=e.target.closest?e.target.closest('a[href^="http"]'):null;
+    if(a){warm(a.href);}
+  }
+  document.addEventListener('mouseover',onHover,{passive:true});
+  document.addEventListener('touchstart',onHover,{passive:true});
+})();
+</script>
 </body>
 </html>
