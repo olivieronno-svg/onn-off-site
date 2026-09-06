@@ -4,4 +4,18 @@
 # officielle de la page Realisations, d'ou les alertes « page en double ».
 # Une redirection permanente transfere les signaux au vrai domaine, ce qu'une
 # simple suppression ne ferait pas.
-/*    https://studio.onn-off.fr/:splat    301!
+#
+# Netlify servait les pages SANS extension (/services), alors que le domaine
+# officiel les sert AVEC (/services.html) : chaque adresse connue de Google est
+# donc renvoyee explicitement vers son equivalent, sinon la redirection
+# tomberait sur une 404.
+/services            https://studio.onn-off.fr/services.html           301!
+/realisations        https://studio.onn-off.fr/realisations.html       301!
+/tarifs              https://studio.onn-off.fr/tarifs.html             301!
+/a-propos            https://studio.onn-off.fr/a-propos.html           301!
+/contact             https://studio.onn-off.fr/contact.html            301!
+/expert-ssi          https://studio.onn-off.fr/expert-ssi.html         301!
+/mentions-legales    https://studio.onn-off.fr/mentions-legales.html   301!
+/cgv                 https://studio.onn-off.fr/cgv.html                301!
+/confidentialite     https://studio.onn-off.fr/confidentialite.html    301!
+/*                   https://studio.onn-off.fr/:splat                  301!
