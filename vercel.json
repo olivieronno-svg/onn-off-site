@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:chemin*",
+      "has": [{ "type": "host", "value": "onn-off-site.vercel.app" }],
+      "destination": "https://studio.onn-off.fr/:chemin*",
+      "permanent": true
+    }
+  ]
+}

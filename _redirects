@@ -1,0 +1,7 @@
+# Lu uniquement par Netlify. Le site officiel est chez Vercel, sur
+# studio.onn-off.fr : la copie Netlify (onn-off-studio.netlify.app) ne doit
+# donc rien servir. Google avait fini par retenir cette copie comme adresse
+# officielle de la page Realisations, d'ou les alertes « page en double ».
+# Une redirection permanente transfere les signaux au vrai domaine, ce qu'une
+# simple suppression ne ferait pas.
+/*    https://studio.onn-off.fr/:splat    301!
