@@ -1,6 +1,12 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "onn-off-site.vercel.app" }],
+      "destination": "https://studio.onn-off.fr/",
+      "permanent": true
+    },
+    {
       "source": "/:chemin*",
       "has": [{ "type": "host", "value": "onn-off-site.vercel.app" }],
       "destination": "https://studio.onn-off.fr/:chemin*",
