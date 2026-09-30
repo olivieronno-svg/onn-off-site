@@ -26,6 +26,34 @@
   .avis-etoiles label:hover ~ label{color:rgba(255,255,255,.22)}
   .avis-etoiles input:checked ~ label{color:rgba(255,255,255,.22)}
   .avis-etoiles label.pleine{color:#ffc53d}
+  /* --- ce qu'ils en disent --- */
+  .avis-resume{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;
+    border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px 30px;background:rgba(255,255,255,.03)}
+  .avis-note{text-align:center;min-width:150px}
+  .avis-note b{display:block;font-family:"Space Grotesk",sans-serif;font-size:3.4rem;line-height:1}
+  .avis-note .sur{color:rgba(255,255,255,.45);font-size:.95rem}
+  .avis-note .etoiles-fixes{font-size:1.25rem;letter-spacing:2px;color:#ffc53d;margin-top:6px}
+  .avis-barres{display:grid;gap:7px}
+  .avis-barre{display:grid;grid-template-columns:34px 1fr 34px;gap:10px;align-items:center;font-size:.85rem}
+  .avis-barre .piste{height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+  .avis-barre .part{height:100%;border-radius:99px;background:linear-gradient(90deg,#ffc53d,#ffa53d);
+    width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+  .avis-liste{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));margin-top:26px}
+  .avis-bulle{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px;background:rgba(255,255,255,.03);
+    opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+  .avis-bulle.vu{opacity:1;transform:none}
+  .avis-bulle .haut{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .avis-pastille{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:0 0 42px;
+    font-weight:600;font-size:.95rem;color:#06212b}
+  .avis-bulle .qui{font-weight:600;font-size:.95rem;line-height:1.25}
+  .avis-bulle .ou{font-size:.82rem;color:rgba(255,255,255,.5)}
+  .avis-bulle .etoiles-fixes{color:#ffc53d;letter-spacing:2px;font-size:1rem}
+  .avis-bulle blockquote{margin:0;font-size:.98rem;line-height:1.6}
+  .avis-bulle .quand{margin:12px 0 0;font-size:.78rem;color:rgba(255,255,255,.4)}
+  .avis-bulle .reponse{margin-top:14px;padding-left:12px;border-left:2px solid rgba(255,255,255,.18);
+    font-size:.88rem;color:rgba(255,255,255,.7)}
+  .avis-vide{border:1px dashed rgba(255,255,255,.2);border-radius:16px;padding:30px;text-align:center}
+  .avis-vide .gros{font-size:2rem;letter-spacing:4px;color:#ffc53d}
   .avis-form label.champ{display:block;margin:0 0 12px;font-size:.9rem}
   .avis-form input[type=text],.avis-form input[type=email],.avis-form textarea{
     width:100%;margin-top:5px;padding:11px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.16);
@@ -62,6 +90,14 @@
 
 <section class="section">
   <div class="container">
+    <h2 style="margin-top:0">Ce qu'ils en disent</h2>
+    <div id="avis-affichage" class="reveal"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 style="margin-top:0">À votre tour</h2>
     <div class="avis-choix">
 
       <div class="avis-carte reveal">
@@ -131,30 +167,188 @@ document.getElementById('avis-form').addEventListener('submit', function (e) {
     return;
   }
   var note = f.querySelector('input[name=note]:checked');
+  if (!note) { etat.textContent = 'Merci de choisir une note, d\'une à cinq étoiles.'; return; }
   etat.textContent = 'Envoi...';
-  fetch('https://formsubmit.co/ajax/contact@onn-off.fr', {
+
+  var champs = {
+    entite: { stringValue: AVIS.entite },
+    auteur: { stringValue: f.nom.value.trim().slice(0, 80) },
+    societe: { stringValue: f.societe.value.trim().slice(0, 120) },
+    note: { integerValue: String(note.value) },
+    texte: { stringValue: f.message.value.trim().slice(0, 1500) },
+    email: { stringValue: f.email.value.trim().slice(0, 160) },
+    publication: { booleanValue: f.publication.checked },
+    date: { stringValue: new Date().toISOString().slice(0, 10) },
+    publie: { booleanValue: false },
+    reponse: { stringValue: '' }
+  };
+
+  fetch(AVIS.base + '/avis?key=' + AVIS.cle, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      _subject: 'Avis client - ONN/OFF Studio',
-      _captcha: 'false',
-      _template: 'table',
-      Note: note ? note.value + ' / 5' : 'non indiquée',
-      Nom: f.nom.value.trim(),
-      Societe: f.societe.value.trim(),
-      Email: f.email.value.trim(),
-      Avis: f.message.value.trim(),
-      'Publication autorisee': f.publication.checked ? 'oui' : 'non'
-    })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields: champs })
   }).then(function (r) {
     if (!r.ok) throw new Error(r.status);
     f.reset();
     document.querySelectorAll('#etoiles label').forEach(function (l) { l.classList.remove('pleine'); });
-    etat.textContent = 'Merci, votre avis est bien arrivé.';
+    etat.textContent = 'Merci, votre avis est enregistré. Il apparaîtra sur cette page après relecture.';
+    /* prévenir par courriel, sans bloquer : l'avis est déjà en base */
+    fetch('https://formsubmit.co/ajax/contact@onn-off.fr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        _subject: 'Avis a valider - ONN/OFF Studio',
+        _captcha: 'false',
+        _template: 'table',
+        Note: note.value + ' / 5',
+        Nom: champs.auteur.stringValue,
+        Societe: champs.societe.stringValue,
+        Email: champs.email.stringValue,
+        Avis: champs.texte.stringValue,
+        'Publication autorisee': champs.publication.booleanValue ? 'oui' : 'non',
+        'Pour publier': 'node agent\\avis.mjs publier <id>  (ou console Firebase, collection avis)'
+      })
+    }).catch(function () {});
   }).catch(function () {
     etat.textContent = 'L\'envoi a échoué. Écrivez-nous à contact@onn-off.fr, nous prendrons votre avis avec plaisir.';
   });
 });
+
+/* Les avis vivent dans la base Firestore du projet onn-off-vitrine, partagée par
+   les deux vitrines. Interface REST plutôt que la bibliothèque Firebase : une seule
+   requête, rien à charger, et la page reste un fichier statique.
+   La clé ci-dessous est une clé web publique : elle identifie le projet, elle
+   n'autorise rien. Ce sont les règles de sécurité qui décident, et elles n'ouvrent
+   que le dépôt d'un avis et la lecture de ceux qui sont validés. */
+var AVIS = {
+  base: 'https://firestore.googleapis.com/v1/projects/onn-off-vitrine/databases/(default)/documents',
+  cle: 'AIzaSyBTo1fCz7kbcqIq0Gwrx-LZgSzEXmhyFAQ',
+  entite: 'studio'
+};
+
+(function () {
+  var zone = document.getElementById('avis-affichage');
+  if (!zone) return;
+
+  function etoiles(n) {
+    return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
+  }
+  function initiales(nom) {
+    return (nom || '?').trim().split(/\s+/).slice(0, 2).map(function (m) { return m[0]; }).join('').toUpperCase();
+  }
+  function teinte(nom) {
+    var s = 0;
+    for (var i = 0; i < (nom || '').length; i++) s = (s * 31 + nom.charCodeAt(i)) % 360;
+    return s;
+  }
+  function quand(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
+  }
+  function echapper(t) {
+    var p = document.createElement('p');
+    p.textContent = t == null ? '' : t;
+    return p.innerHTML;
+  }
+
+  fetch(AVIS.base + ':runQuery?key=' + AVIS.cle, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      structuredQuery: {
+        from: [{ collectionId: 'avis' }],
+        where: { compositeFilter: { op: 'AND', filters: [
+          { fieldFilter: { field: { fieldPath: 'publie' }, op: 'EQUAL', value: { booleanValue: true } } },
+          { fieldFilter: { field: { fieldPath: 'entite' }, op: 'EQUAL', value: { stringValue: AVIS.entite } } }
+        ] } },
+        limit: 60
+      }
+    })
+  })
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .catch(function () { return []; })
+    .then(function (reponse) {
+      var liste = (reponse || []).filter(function (l) { return l && l.document; }).map(function (l) {
+        var f = l.document.fields || {};
+        return {
+          note: parseInt((f.note && f.note.integerValue) || 0, 10),
+          texte: (f.texte && f.texte.stringValue) || '',
+          auteur: (f.auteur && f.auteur.stringValue) || '',
+          societe: (f.societe && f.societe.stringValue) || '',
+          date: (f.date && f.date.stringValue) || '',
+          reponse: (f.reponse && f.reponse.stringValue) || ''
+        };
+      }).filter(function (a) { return a.note && a.texte; });
+      liste.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+
+      if (!liste.length) {
+        zone.innerHTML = '<div class="avis-vide">' +
+          '<p class="gros">☆☆☆☆☆</p>' +
+          '<p>Aucun avis publié pour le moment. Vous seriez le premier, et ça compte double.</p>' +
+          '</div>';
+        return;
+      }
+
+      var total = liste.reduce(function (s, a) { return s + a.note; }, 0);
+      var moyenne = total / liste.length;
+      var comptes = [0, 0, 0, 0, 0];
+      liste.forEach(function (a) { comptes[a.note - 1]++; });
+
+      var barres = '';
+      for (var n = 5; n >= 1; n--) {
+        var part = Math.round((comptes[n - 1] / liste.length) * 100);
+        barres += '<div class="avis-barre"><span>' + n + ' ★</span>' +
+          '<span class="piste"><span class="part" data-part="' + part + '"></span></span>' +
+          '<span style="text-align:right">' + comptes[n - 1] + '</span></div>';
+      }
+
+      var cartes = liste.map(function (a) {
+        var h = teinte(a.auteur);
+        return '<article class="avis-bulle">' +
+          '<div class="haut">' +
+            '<span class="avis-pastille" style="background:hsl(' + h + ',70%,72%)">' + echapper(initiales(a.auteur)) + '</span>' +
+            '<span><span class="qui">' + echapper(a.auteur || 'Client') + '</span>' +
+            (a.societe ? '<span class="ou">' + echapper(a.societe) + '</span>' : '') + '</span>' +
+            '<span class="etoiles-fixes" style="margin-left:auto" aria-label="' + a.note + ' sur 5">' + etoiles(a.note) + '</span>' +
+          '</div>' +
+          '<blockquote>' + echapper(a.texte) + '</blockquote>' +
+          (a.reponse ? '<p class="reponse"><b>Notre réponse :</b> ' + echapper(a.reponse) + '</p>' : '') +
+          (quand(a.date) ? '<p class="quand">' + quand(a.date) + '</p>' : '') +
+          '</article>';
+      }).join('');
+
+      zone.innerHTML =
+        '<div class="avis-resume">' +
+          '<div class="avis-note"><b>' + moyenne.toFixed(1).replace('.', ',') + '</b>' +
+            '<span class="sur">sur 5</span>' +
+            '<div class="etoiles-fixes">' + etoiles(Math.round(moyenne)) + '</div>' +
+            '<div class="sur" style="margin-top:6px">' + liste.length + ' avis</div>' +
+          '</div>' +
+          '<div class="avis-barres">' + barres + '</div>' +
+        '</div>' +
+        '<div class="avis-liste">' + cartes + '</div>';
+
+      /* les barres se remplissent et les cartes apparaissent à la lecture */
+      requestAnimationFrame(function () {
+        zone.querySelectorAll('.part').forEach(function (p) { p.style.width = p.dataset.part + '%'; });
+      });
+      var bulles = zone.querySelectorAll('.avis-bulle');
+      if (!('IntersectionObserver' in window)) {
+        bulles.forEach(function (b) { b.classList.add('vu'); });
+        return;
+      }
+      var oeil = new IntersectionObserver(function (entrees) {
+        entrees.forEach(function (e, i) {
+          if (!e.isIntersecting) return;
+          setTimeout(function () { e.target.classList.add('vu'); }, i * 70);
+          oeil.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -40px 0px' });
+      bulles.forEach(function (b) { oeil.observe(b); });
+    });
+})();
 
 var an = document.getElementById('year');
 if (an) an.textContent = new Date().getFullYear();
