@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laisser un avis — ONN/OFF Studio</title>
+<meta name="description" content="Vous avez travaillé avec ONN/OFF Studio ? Laissez un avis Google ou écrivez-nous un mot. Deux minutes qui aident les prochains clients à nous trouver.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Laisser un avis — ONN/OFF Studio">
+<meta property="og:description" content="Votre avis aide les prochains clients à nous trouver. Avis Google ou mot écrit, au choix.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="canonical" href="https://studio.onn-off.fr/avis.html">
+<style>
+  .avis-choix{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:10px}
+  .avis-carte{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px;background:rgba(255,255,255,.03)}
+  .avis-carte h2{margin:0 0 8px;font-size:1.25rem}
+  .avis-carte p{margin:0 0 18px}
+  .avis-etoiles{display:flex;gap:6px;margin:0 0 16px}
+  .avis-etoiles input{position:absolute;opacity:0;width:0;height:0}
+  .avis-etoiles label{cursor:pointer;font-size:1.9rem;line-height:1;color:rgba(255,255,255,.22);transition:color .12s}
+  .avis-etoiles:hover label{color:#ffc53d}
+  .avis-etoiles label:hover ~ label{color:rgba(255,255,255,.22)}
+  .avis-etoiles input:checked ~ label{color:rgba(255,255,255,.22)}
+  .avis-etoiles label.pleine{color:#ffc53d}
+  .avis-form label.champ{display:block;margin:0 0 12px;font-size:.9rem}
+  .avis-form input[type=text],.avis-form input[type=email],.avis-form textarea{
+    width:100%;margin-top:5px;padding:11px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.16);
+    background:rgba(0,0,0,.25);color:inherit;font:inherit}
+  .avis-form textarea{min-height:120px;resize:vertical}
+  .avis-pot{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ONN/OFF Studio">
+      <span>ONN<span class="slash">/</span>OFF<small>STUDIO DIGITAL</small></span>
+    </a>
+    <nav>
+      <ul class="nav-links"><li><a href="index.html">Accueil</a></li><li><a href="index.html#logiciels-pro">Logiciels pro</a></li><li><a href="services.html">Services</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="contact.html">Contact</a></li></ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary btn-sm">Discuter de votre projet</a>
+      <button class="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero"><div class="glow glow--cyan"></div>
+  <div class="container reveal">
+    <h1>Votre avis</h1>
+    <p class="muted">Vous avez travaillé avec nous, ou vous utilisez un de nos logiciels. Deux minutes de votre part aident les prochains à nous trouver, et nous disent quoi améliorer.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="avis-choix">
+
+      <div class="avis-carte reveal">
+        <h2>Avis Google</h2>
+        <p class="muted">Le plus utile pour nous : votre avis apparaît directement dans la recherche Google et sur Maps. Vous avez besoin d'un compte Google.</p>
+        <a id="lien-google" class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=ONN%2FOFF%20Studio%20B%C3%A9ziers" target="_blank" rel="noopener">Écrire un avis Google</a>
+      </div>
+
+      <div class="avis-carte reveal">
+        <h2>Nous écrire un mot</h2>
+        <p class="muted">Sans compte, sans inscription. Nous pouvons le publier sur le site, avec votre accord.</p>
+        <form id="avis-form" class="avis-form" novalidate>
+          <div class="avis-etoiles" id="etoiles" role="radiogroup" aria-label="Votre note">
+            <input type="radio" name="note" id="n5" value="5"><label for="n5" title="5 sur 5">★</label>
+            <input type="radio" name="note" id="n4" value="4"><label for="n4" title="4 sur 5">★</label>
+            <input type="radio" name="note" id="n3" value="3"><label for="n3" title="3 sur 5">★</label>
+            <input type="radio" name="note" id="n2" value="2"><label for="n2" title="2 sur 5">★</label>
+            <input type="radio" name="note" id="n1" value="1" title="1 sur 5"><label for="n1">★</label>
+          </div>
+          <label class="champ">Votre nom<input type="text" name="nom" required autocomplete="name"></label>
+          <label class="champ">Votre société <span class="muted">(facultatif)</span><input type="text" name="societe" autocomplete="organization"></label>
+          <label class="champ">Votre avis<textarea name="message" required minlength="10" placeholder="Ce qui vous a servi, ce qui pourrait être mieux."></textarea></label>
+          <label class="champ">Votre e-mail <span class="muted">(facultatif, si vous voulez une réponse)</span><input type="email" name="email" autocomplete="email"></label>
+          <label class="champ" style="font-size:.85rem"><input type="checkbox" name="publication" value="oui" style="width:auto;margin-right:6px">J'autorise la publication de cet avis avec mon prénom et ma société</label>
+          <input type="text" name="_honey" class="avis-pot" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="btn btn-primary">Envoyer mon avis</button>
+          <p id="avis-etat" role="status" style="font-size:.9rem;margin-top:12px"></p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <small>&copy; <span id="year">2026</span> ONN/OFF Studio &middot; Onn-Off (EI) &middot; RCS Béziers 490&nbsp;649&nbsp;233 &middot; APE 62.01Z &middot; <a href="mentions-legales.html" style="color:inherit;text-decoration:underline">Mentions légales</a> &middot; <a href="confidentialite.html" style="color:inherit;text-decoration:underline">Confidentialité</a></small>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Étoiles : on colore de la 1re à celle qui est cochée. Le balisage va de 5 à 1 pour
+   que le survol CSS fonctionne, l'affichage est rétabli ici. */
+(function () {
+  var groupe = document.getElementById('etoiles');
+  if (!groupe) return;
+  groupe.addEventListener('change', function () {
+    var choisi = groupe.querySelector('input:checked');
+    var note = choisi ? parseInt(choisi.value, 10) : 0;
+    groupe.querySelectorAll('label').forEach(function (l) {
+      var v = parseInt(l.getAttribute('for').slice(1), 10);
+      l.classList.toggle('pleine', v <= note);
+    });
+  });
+})();
+
+/* Envoi : même service que le formulaire de contact du site (formsubmit.co),
+   donc aucune clé à stocker et aucune fonction serveur à maintenir. */
+document.getElementById('avis-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var f = e.target, etat = document.getElementById('avis-etat');
+  if (f._honey.value) return;                      // robot
+  if (!f.nom.value.trim() || f.message.value.trim().length < 10) {
+    etat.textContent = 'Merci d\'indiquer votre nom et quelques mots.';
+    return;
+  }
+  var note = f.querySelector('input[name=note]:checked');
+  etat.textContent = 'Envoi...';
+  fetch('https://formsubmit.co/ajax/contact@onn-off.fr', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      _subject: 'Avis client - ONN/OFF Studio',
+      _captcha: 'false',
+      _template: 'table',
+      Note: note ? note.value + ' / 5' : 'non indiquée',
+      Nom: f.nom.value.trim(),
+      Societe: f.societe.value.trim(),
+      Email: f.email.value.trim(),
+      Avis: f.message.value.trim(),
+      'Publication autorisee': f.publication.checked ? 'oui' : 'non'
+    })
+  }).then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    f.reset();
+    document.querySelectorAll('#etoiles label').forEach(function (l) { l.classList.remove('pleine'); });
+    etat.textContent = 'Merci, votre avis est bien arrivé.';
+  }).catch(function () {
+    etat.textContent = 'L\'envoi a échoué. Écrivez-nous à contact@onn-off.fr, nous prendrons votre avis avec plaisir.';
+  });
+});
+
+var an = document.getElementById('year');
+if (an) an.textContent = new Date().getFullYear();
+</script>
+<script src="main.js"></script>
+</body>
+</html>
